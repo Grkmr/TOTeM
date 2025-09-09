@@ -37,10 +37,10 @@ class Totem(Resource):
 
         def edge_label_for_forward(e: TotemEdge) -> str:
             parts = []
-            if e.lc:
-                parts.append(e.lc)
             if e.ec:
-                parts.append(e.lc_inverse)
+                parts.append(e.ec)
+            if e.ec_inverse:
+                parts.append(e.ec_inverse)
             return " · ".join(parts) if parts else ""
 
         color_map = generate_color_map(self.object_types)
