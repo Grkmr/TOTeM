@@ -22,6 +22,9 @@ class TotemEdge(BaseModel):
 
 
 class Totem(Resource):
+    label = "Totem"
+    description = "A totem graph"
+
     object_types: list[str]
     edges: list[TotemEdge]
     type: Literal["totem"] = "totem"
@@ -69,17 +72,17 @@ class Totem(Resource):
                 )
             )
 
-        graph = Graph(type="graph", nodes=nodes, edges=edges)
-
-        layout_config: GraphvizLayoutConfig = {
-            "engine": "dot",
-            "dot_attr": {
-                "splines": "false",  # <- ✅ disables curved edges
-                "overlap": "false",  # <- avoids node overlap
-                "fontsize": "16",  # <- applies to edge labels
-                "nodesep": "0.5",  # <- horizontal spacing between nodes
-                "ranksep": "0.75",  # <- vertical spacing between layers
-            },
-        }
-
-        return graph.layout_graph(layout_config)
+        return Graph(
+            type="graph",
+            nodes=nodes,
+            edges=edges,
+            layout_config=GraphvizLayoutConfig(
+                engine="dot",
+                graphAttrs={
+                    "splines": "false",
+                    "overlap": "false",
+                    "nodesep": "0.5",
+                    "ranksep": "0.75",
+                },
+            ),
+        )
