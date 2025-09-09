@@ -77,12 +77,10 @@ class Totem(Resource):
             nodes=nodes,
             edges=edges,
             layout_config=GraphvizLayoutConfig(
-                engine="dot",
+                engine="neato",
                 graphAttrs={
-                    "splines": "false",
                     "overlap": "false",
-                    "nodesep": "0.5",
-                    "ranksep": "0.75",
                 },
+                edgeAttrs={"len": 3},
             ),
         )
